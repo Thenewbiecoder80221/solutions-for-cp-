@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n, x;
+        cin >> n >> x;
+
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+
+        // Add start (0) and end (x) points
+        a.push_back(0);  // Starting point
+        sort(a.begin(), a.end());  // Sort after adding 0
+
+        // Calculate the maximum gap between consecutive gas stations
+        int max_gap = 0;
+        for (int i = 1; i < a.size(); i++) {
+            max_gap = max(max_gap, a[i] - a[i - 1]);
+        }
+
+        // Distance between the last station and x, multiplied by 2
+        int distance_to_x = 2 * (x - a.back());
+
+        // The minimum tank size is the maximum of these two values
+        int min_tank_size = max(max_gap, distance_to_x);
+
+        cout << min_tank_size << endl;
+    }
+
+    return 0;
+}
