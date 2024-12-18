@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t; // Number of test cases
+    for(int g = 0; g < t; g++) {
+        int n, k;
+        cin >> n >> k;
+        int arr[100000];
+        int time = 0;
+        
+        // Input the array
+        for(int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+
+        // Find the minimum element in the array
+        int min_value = *min_element(arr, arr + n);
+        
+        // Calculate time if minimum value is less than k
+        if(min_value < k) {
+            time = k - min_value;  // Time is the difference to make the smallest element >= k
+        }
+
+        // Output the result for this test case
+        cout << time << endl;
+    }
+    return 0;
+}
