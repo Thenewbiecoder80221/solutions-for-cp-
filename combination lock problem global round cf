@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool canUnlock(int x) {
+    while (x >= 33) {
+        // If x is divisible by 33, reduce it directly
+        if (x % 33 == 0) return true;
+
+        // Check if "33" exists in the number (string representation)
+        string s = to_string(x);
+        bool found33 = false;
+        for (size_t i = 0; i + 1 < s.size(); ++i) {
+            if (s[i] == '3' && s[i + 1] == '3') {
+                found33 = true;
+                break;
+            }
+        }
+
+        // If "33" is found, remove it and continue
+        if (found33) {
+            size_t pos = s.find("33");
+            s.erase(pos, 2); // Remove "33"
+            x = stoi(s.empty() ? "0" : s); // Convert back to integer
+        } else {
+            // If "33" is not found, subtract 33 from x
+            x -= 33;
+        }
+    }
+
+    // If x becomes 0, it can be unlocked
+    return x == 0;
+}
+
+int main() {
+    int t;
+    cin >> t; // Number of test cases
+    while (t--) {
+        int x;
+        cin >> x; // Read each test case
+        if (canUnlock(x)) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    }
+    return 0;
+}
